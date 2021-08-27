@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import Accordion from "./components/Accordion/Accordion";
+import {Rating, RatingValuePropsType} from "./components/Rating/Rating";
+import {OnOff} from "./components/OnOff/OnOff";
+import UncontrolledAccordion from "./components/Accordion/UncontrolledAccordion";
+import {UncontrolledRating} from "./components/Rating/UncontrolledRating";
+import {UncontrolledOnOff} from "./components/OnOff/UncontrolledOnOff";
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    console.log('App rendering')
+
+    let [ratingValue, setRatingValue] = useState<RatingValuePropsType>(0)
+    let [accardionCollapsed, setAccardionCollapsed] = useState<boolean>(false)
+    const [status, setStatus] = useState(false)
+
+    const changeRatingValue = (value: RatingValuePropsType) => {
+        setRatingValue(value)
+    }
+
+    const changeAccardionCollapsed = () => {
+        setAccardionCollapsed(!accardionCollapsed)
+    }
+
+    const changeStatusOnOff = (value: boolean) => {
+        setStatus(value)
+    }
+
+    return (
+        <div className="App">
+            <Rating value={ratingValue} changeRatingValue={changeRatingValue} />
+            <UncontrolledRating/>
+            <Accordion titleValue={'Menu'} collapsed={accardionCollapsed} changeAccardionCollapsed={changeAccardionCollapsed}/>
+            <UncontrolledAccordion titleValue={'Menu'}/>
+            <OnOff status={status} changeStatusOnOff={changeStatusOnOff}/>
+            <UncontrolledOnOff/>
+        </div>
+    );
 }
 
 export default App;
+
+
+
+
+
